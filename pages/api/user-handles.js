@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   if (!session) return res.status(401).json({ error: 'Unauthorized' });
 
   const email = session.user.email;
-  await dbConnectMongoose(); // Using Mongoose connection
+  await dbConnectMongoose();
 
   if (req.method === 'GET') {
     const user = await UserHandle.findOne({ email });
