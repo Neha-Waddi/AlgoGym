@@ -1,5 +1,6 @@
 import React from 'react';
-import { LightBulbIcon } from '@heroicons/react/24/solid'; 
+import { LightBulbIcon,ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid'; 
+import Link from 'next/link';
 
 export default function StreakCounter({ days }) {
   return (
@@ -10,7 +11,10 @@ export default function StreakCounter({ days }) {
       <p className="text-md text-gray-600">Consecutive Days</p>
       {days > 0 && (
         <p className="mt-3 text-sm text-gray-50">Keep up the great work!</p>
+
       )}
+      <Link href='/problems' className="mt-3 text-sm text-yellow-500 underline">Solve today's problems to continue the streak <ArrowTopRightOnSquareIcon className='w-5 h-5'/></Link>
+
     </div>
   );
 }
