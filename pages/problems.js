@@ -1,15 +1,48 @@
+import { useState } from "react";
 import ProblemCard from "../components/ProblemCard";
 
-export default function problems(){
-return(
-<ProblemCard
-  title="Find the Peak Element"
-  link="https://leetcode.com/problems/find-peak-element"
-  difficulty="Medium"
-  topic="Binary Search"
-  time="20 min"
-  hint="Use a variation of binary search to find the peak."
-/>
-);
+export default function ProblemsPage() {
+  const [problemList, setProblemList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
+  const fetchProblems = async () => {
+    setLoading(true);
+    const res = await fetch("/api/generate-problems", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ topic: "dynamic programming", level: "easy" }),
+    });
+    const { problems } = await res.json();
+    setProblemList(problems);
+    setLoading(false);
+  };
+
+  return (
+    <div className="p-6 max-w-4xl mx-auto space-y-4">
+      <h1 className="text-2xl font-bold mb-4">🎯 Generate Personalized DSA Problems</h1>
+
+      <button
+        onClick={fetchProblems}
+        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+      >
+        Generate Problems
+      </button>
+
+      {loading && <p>Loading problems...</p>}
+
+      <div className="grid gap-4 mt-6">
+        {problemList.map((p, idx) => (
+          <ProblemCard
+            key={idx}
+            title={p.title}
+            link={p.link}
+            difficulty={p.difficulty}
+            topic={p.topic}
+            time={p.time}
+            hint={p.hint}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }

@@ -19,7 +19,7 @@ export default function ProblemCard({ title, link, difficulty, topic, time, hint
       <a
         href={link}
         target="_blank"
-        className="inline-block mt-2 text-blue-600 font-medium hover:underline"
+        className="inline-block mt-2 text-blue-600 font-medium hover:underline hover:cursor-pointer"
       >
         Solve Now →
       </a>
