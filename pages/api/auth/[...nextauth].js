@@ -2,7 +2,8 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { validateUser } from "../../../lib/user";
 
-export default NextAuth({
+// 🔥 Export this so it can be reused in API routes
+export const authOptions = {
   session: {
     strategy: "jwt",
   },
@@ -25,4 +26,7 @@ export default NextAuth({
   pages: {
     signIn: "/login",
   },
-});
+};
+
+// ✅ Use it for NextAuth
+export default NextAuth(authOptions);
