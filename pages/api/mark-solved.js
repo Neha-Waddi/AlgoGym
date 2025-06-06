@@ -38,7 +38,6 @@ export default async function handler(req, res) {
   user.xp += 10; 
   user.streak = newStreak;
   user.lastSolvedDate = new Date();
-console.log(user)
   await user.save();
 
   return res.status(200).json({

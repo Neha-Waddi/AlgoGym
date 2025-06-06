@@ -11,6 +11,9 @@ export default function Dashboard() {
   const { data: session, status } = useSession();
   const [handles, setHandles] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [xp, setXp] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const [level, setLevel] = useState(1);
 
   useEffect(() => {
     async function fetchHandles() {
@@ -29,6 +32,20 @@ export default function Dashboard() {
       }
     }
     fetchHandles();
+  }, []);
+
+   useEffect(() => {
+    async function fetchStats() {
+      const res = await fetch('/api/get-user-stats');
+      if (res.ok) {
+        const data = await res.json();
+        setXp(data.xp);
+        setStreak(data.streak);
+        setLevel(Math.floor(data.xp / 100) + 1);
+      }
+    }
+
+    fetchStats();
   }, []);
 
   if (status === "loading" || isLoading) {
@@ -69,11 +86,11 @@ export default function Dashboard() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <DashboardCard className="md:col-span-2">
-            <XPProgressBar xp={180} level={3} />
+            <XPProgressBar xp={xp} level={level} />
           </DashboardCard>
 
           <DashboardCard>
-            <StreakCounter days={5} />
+            <StreakCounter days={streak} />
           </DashboardCard>
 
           <DashboardCard>

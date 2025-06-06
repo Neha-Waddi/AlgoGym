@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 export default function XPProgressBar({ xp, level }) {
   const maxXPForLevel = level * 100 + 50; 
   const progressPercentage = (xp / maxXPForLevel) * 100;

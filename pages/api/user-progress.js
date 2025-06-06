@@ -4,7 +4,6 @@ import { getUserProgress } from '../../lib/get-userprogress';
 
 export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
-  console.log("session in user progress: " + JSON.stringify(session, null, 2));
 
   if (!session) return res.status(401).json({ error: 'Unauthorized' });
 
