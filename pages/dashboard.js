@@ -14,6 +14,11 @@ export default function Dashboard() {
   const [xp, setXp] = useState(0);
   const [streak, setStreak] = useState(0);
   const [level, setLevel] = useState(1);
+  const [tasks, setTasks] = useState(0);
+  const [solvedToday, setSolvedToday] = useState(0);
+  const [recentSolved, setRecentSolved] = useState([]);
+
+
 
   useEffect(() => {
     async function fetchHandles() {
@@ -42,6 +47,10 @@ export default function Dashboard() {
         setXp(data.xp);
         setStreak(data.streak);
         setLevel(Math.floor(data.xp / 100) + 1);
+        setTasks(data.tasks);
+        setSolvedToday(data.solvedToday);
+        setRecentSolved(data.recentSolvedProblems || []);
+
       }
     }
 
@@ -94,72 +103,51 @@ export default function Dashboard() {
           </DashboardCard>
 
           <DashboardCard>
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col">
               <h3 className="text-lg font-semibold text-white mb-4">Quick Stats</h3>
-              <div className="grid grid-cols-2 gap-4 flex-grow">
+              <div className="grid grid-rows-2 gap-4 flex-grow">
                 <div className="bg-gray-800 p-3 rounded-lg">
-                  <p className="text-2xl font-bold text-pink-500">120</p>
-                  <p className="text-xs text-gray-400">Tasks</p>
+                  <p className="text-2xl font-bold text-pink-500">{tasks}</p>
+                  <p className="text-xs text-gray-400">Total Problems Solved</p>
                 </div>
+                
                 <div className="bg-gray-800 p-3 rounded-lg">
-                  <p className="text-2xl font-bold text-emerald-500">85%</p>
-                  <p className="text-xs text-gray-400">Success</p>
-                </div>
-                <div className="bg-gray-800 p-3 rounded-lg">
-                  <p className="text-2xl font-bold text-yellow-500">3h</p>
-                  <p className="text-xs text-gray-400">Today</p>
-                </div>
-                <div className="bg-gray-800 p-3 rounded-lg">
-                  <p className="text-2xl font-bold text-blue-500">24</p>
-                  <p className="text-xs text-gray-400">Projects</p>
+                  <p className="text-2xl font-bold text-yellow-500">{6-solvedToday}</p>
+                  <p className="text-xs text-gray-400">more to reach today's goal</p>
                 </div>
               </div>
             </div>
           </DashboardCard>
 
           <DashboardCard className="lg:col-span-2">
-            <h3 className="text-lg font-semibold text-white mb-4">Recent Activity</h3>
-            <div className="space-y-4">
-              <div className="flex items-start p-3 bg-gray-800 rounded-lg">
-                <div className="bg-blue-600 p-2 rounded-full mr-3">
-                  <CheckCircleIcon className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <p className="text-gray-300 font-medium">KOKO EATING BANANAS</p>
-                  <p className="text-xs text-gray-500">2 hours ago</p>
-                </div>
-              </div>
-              <div className="flex items-start p-3 bg-gray-800 rounded-lg">
-                <div className="bg-purple-600 p-2 rounded-full mr-3">
-                  <PlusIcon className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <p className="text-gray-300 font-medium">BINARY TREE ZIG_ZAG TRAVERSAL</p>
-                  <p className="text-xs text-gray-500">Yesterday</p>
-                </div>
-              </div>
-            </div>
-          </DashboardCard>
+  <h3 className="text-lg font-semibold text-white mb-4">Recent Activity</h3>
+  <div className="space-y-4">
+    {recentSolved.length === 0 ? (
+      <p className="text-gray-400">No problems solved recently.</p>
+    ) : (
+      recentSolved.map((problem, idx) => (
+        <div key={idx} className="flex items-start p-3 bg-gray-800 rounded-lg">
+          <div className="bg-blue-600 p-2 rounded-full mr-3">
+            <CheckCircleIcon className="h-5 w-5 text-white" />
+          </div>
+          <div>
+            <p className="text-gray-300 font-medium">{problem.title}</p>
+            <p className="text-xs text-gray-500">
+              {new Date(problem.dateSolved).toLocaleString(undefined, {
+                dateStyle: "medium",
+                timeStyle: "short"
+              })}
+            </p>
+          </div>
+        </div>
+      ))
+    )}
+  </div>
+</DashboardCard>
+
 
           <DashboardCard className="lg:col-span-2">
             <LinkedAccountsCard handles={handles} />
-          </DashboardCard>
-
-          <DashboardCard className="md:col-span-2">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold text-white">Notifications</h3>
-              <span className="px-2 py-1 bg-blue-600 text-xs text-white rounded-full">2 new</span>
-            </div>
-            <div className="space-y-3">
-              <div className="p-3 bg-gray-800 rounded-lg border-l-4 border-yellow-500">
-                <p className="text-gray-300 font-medium">Weekly report ready</p>
-                <p className="text-xs text-gray-500">View your performance analytics</p>
-              </div>
-              <div className="p-3 bg-gray-800 rounded-lg border-l-4 border-green-500">
-                <p className="text-gray-300 font-medium">New feature available</p>
-                <p className="text-xs text-gray-500">Try our new task manager</p>
-              </div>
-            </div>
           </DashboardCard>
         </div>
       </div>

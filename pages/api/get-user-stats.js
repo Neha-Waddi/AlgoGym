@@ -12,8 +12,22 @@ export default async function handler(req, res) {
   const user = await UserHandle.findOne({ email: session.user.email });
   if (!user) return res.status(404).json({ message: 'User not found' });
 
+  const today = new Date();
+  const todayDate = today.toDateString(); 
+
+  const solvedToday = user.solvedProblems.filter(p =>
+    new Date(p.dateSolved).toDateString() === todayDate
+  ).length;
+
+  const recentSolvedProblems = [...user.solvedProblems]
+  .sort((a, b) => new Date(b.dateSolved) - new Date(a.dateSolved))
+  .slice(0, 5); 
+
   res.status(200).json({
     xp: user.xp,
     streak: user.streak,
+    tasks:user.__v,
+    solvedToday:solvedToday,
+    recentSolvedProblems: recentSolvedProblems
   });
 }
