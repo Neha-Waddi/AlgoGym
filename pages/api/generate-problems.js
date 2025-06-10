@@ -2,6 +2,9 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth/[...nextauth]";
 import { getUserProgress } from "../../lib/get-userprogress";
+import dbConnectMongoose from "../../lib/mongoose";
+import UserHandle from "../../lib/user-handles";
+
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
@@ -16,6 +19,7 @@ export default async function handler(req, res) {
     if (!session) {
       return res.status(401).json({ error: "Unauthorized" });
     }
+    
 
     const email = session.user.email;
 
@@ -27,9 +31,18 @@ export default async function handler(req, res) {
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const allProblems = [];
+    await dbConnectMongoose();
+const user = await UserHandle.findOne({ email });
+
+const solvedTitlesSet = new Set(
+  user.solvedProblems.map((prob) => prob.title.toLowerCase())
+);
+
 
     for (const topic of weakTopics) {
-      const prompt = `Generate 1 DSA problem on the topic "${topic}" with difficulty random. Respond with a valid JSON array like:
+      const prompt = `Generate 1 unique DSA problem on the topic "${topic}".
+Avoid these titles: ${Array.from(solvedTitlesSet).join(", ")}.
+Respond with a valid JSON array like:
 [
   {
     "title": "Two Sum",
@@ -40,6 +53,7 @@ export default async function handler(req, res) {
     "hint": "Use a hashmap to track complements"
   }
 ]`;
+
 
       const result = await model.generateContent({
         contents: [{ parts: [{ text: prompt }] }],
