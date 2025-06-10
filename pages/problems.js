@@ -13,7 +13,6 @@ export default function ProblemsPage() {
     try {
       const progressRes = await fetch("/api/user-progress");
       const { weakTopics } = await progressRes.json();
-      console.log(weakTopics)
 
       if (!weakTopics || weakTopics.length === 0) {
         setError("No weak topics found from user progress.");

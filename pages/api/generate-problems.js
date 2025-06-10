@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     const allProblems = [];
 
     for (const topic of weakTopics) {
-      const prompt = `Generate a DSA problem on the topic "${topic}" with difficulty random. Respond with a valid JSON array like:
+      const prompt = `Generate 1 DSA problem on the topic "${topic}" with difficulty random. Respond with a valid JSON array like:
 [
   {
     "title": "Two Sum",
