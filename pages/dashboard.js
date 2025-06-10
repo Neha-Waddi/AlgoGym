@@ -17,6 +17,8 @@ export default function Dashboard() {
   const [tasks, setTasks] = useState(0);
   const [solvedToday, setSolvedToday] = useState(0);
   const [recentSolved, setRecentSolved] = useState([]);
+  const [topicCounts, setTopicCounts] = useState({});
+
 
 
 
@@ -50,6 +52,8 @@ export default function Dashboard() {
         setTasks(data.tasks);
         setSolvedToday(data.solvedToday);
         setRecentSolved(data.recentSolvedProblems || []);
+        setTopicCounts(data.topicCounts || {});
+
 
       }
     }
@@ -101,6 +105,7 @@ export default function Dashboard() {
           <DashboardCard>
             <StreakCounter days={streak} />
           </DashboardCard>
+          
 
           <DashboardCard>
             <div className="flex flex-col">
@@ -118,6 +123,17 @@ export default function Dashboard() {
               </div>
             </div>
           </DashboardCard>
+          <DashboardCard className="lg:col-span-2">
+  <h3 className="text-lg font-semibold text-white mb-4">Problems Solved by Topic</h3>
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+    {Object.entries(topicCounts).map(([topic, count]) => (
+      <div key={topic} className="bg-gray-800 p-3 rounded-lg text-center">
+        <p className="text-xl font-bold text-indigo-400">{count}</p>
+        <p className="text-sm text-gray-300">{topic}</p>
+      </div>
+    ))}
+  </div>
+</DashboardCard>
 
           <DashboardCard className="lg:col-span-2">
   <h3 className="text-lg font-semibold text-white mb-4">Recent Activity</h3>
@@ -144,11 +160,6 @@ export default function Dashboard() {
     )}
   </div>
 </DashboardCard>
-
-
-          <DashboardCard className="lg:col-span-2">
-            <LinkedAccountsCard handles={handles} />
-          </DashboardCard>
         </div>
       </div>
     </div>

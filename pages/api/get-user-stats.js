@@ -23,11 +23,20 @@ export default async function handler(req, res) {
   .sort((a, b) => new Date(b.dateSolved) - new Date(a.dateSolved))
   .slice(0, 5); 
 
+  const topicCounts = {};
+
+user.solvedProblems.forEach((p) => {
+  const topic = p.topic || 'Unknown';
+  topicCounts[topic] = (topicCounts[topic] || 0) + 1;
+});
+
+
   res.status(200).json({
     xp: user.xp,
     streak: user.streak,
     tasks:user.__v,
     solvedToday:solvedToday,
-    recentSolvedProblems: recentSolvedProblems
+    recentSolvedProblems: recentSolvedProblems,
+    topicCounts:topicCounts
   });
 }
