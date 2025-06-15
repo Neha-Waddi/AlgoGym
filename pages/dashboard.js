@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import DashboardHeader from "../components/DashboardHeader";
 import XPProgressBar from "../components/XPProgress";
 import StreakCounter from "../components/StreakTracker";
-import LinkedAccountsCard from "../components/LinkedAccountsCard";
 import DashboardCard from "../components/DashboardCard";
 import { CheckCircleIcon,PlusIcon} from "@heroicons/react/24/solid";
 
@@ -92,6 +91,21 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-900 p-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto space-y-8">
+        {tasks === 0 && (!handles.leetcode && !handles.gfg && !handles.codeforces) && (
+  <div className="max-w-3xl mx-auto bg-blue-900 border border-blue-500 rounded-xl p-6 text-white shadow-md mb-8">
+    <h2 className="text-2xl font-bold mb-2">👋 Welcome to AlgoGym!</h2>
+    <p className="mb-4">You're just getting started! Here’s how to begin:</p>
+    <ul className="list-disc list-inside space-y-2 text-blue-100">
+      <li>💡 Go to <strong>Profile</strong> and link your <span className="text-yellow-300">LeetCode, GFG, and Codeforces</span> handles.</li>
+      <li>🔥 Click "Generate Problems" to get personalized DSA questions.</li>
+      <li>📈 Solve problems and watch your XP, level & streak grow!</li>
+      <li>💪 Belive you can and you're HALFWAY there!</li>
+
+    </ul>
+    <p className="mt-4 text-sm text-blue-300">Once you start solving, your dashboard will come to life ✨</p>
+  </div>
+)}
+
         <DashboardHeader 
           name={session.user.name || session.user.email} 
           avatar={session.user.image}
