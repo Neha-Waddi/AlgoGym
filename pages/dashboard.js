@@ -80,7 +80,7 @@ export default function Dashboard() {
           <p className="text-gray-300 mb-4">Please login to view your dashboard</p>
           <Link href="/login" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
               Login
-            </Link>
+          </Link>
         </div>
       </div>
     );
