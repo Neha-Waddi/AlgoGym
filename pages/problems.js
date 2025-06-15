@@ -20,11 +20,9 @@ export default function ProblemsPage() {
         return;
       }
 
-      // For now, pick the first weak topic (or you can loop/multi-fetch)
-      const topic = weakTopics[0]; // e.g., "dynamic programming"
-      const level = "easy"; // or fetch this from user preference
+      const topic = weakTopics[0]; 
+      const level = "easy";
 
-      // Step 2: Use weak topic to generate problems
       const res = await fetch("/api/generate-problems", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

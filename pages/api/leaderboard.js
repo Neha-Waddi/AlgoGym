@@ -6,8 +6,8 @@ export default async function handler(req, res) {
 
   try {
     const users = await UserHandle.find({}, "email xp streak solvedProblems")
-      .sort({ xp: -1 }) // Sort by XP descending
-      .limit(20); // Top 20
+      .sort({ xp: -1 })
+      .limit(20);
 
     const leaderboard = users.map((user) => ({
       email: user.email,
