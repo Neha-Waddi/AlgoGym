@@ -1,33 +1,70 @@
-# AlgoGym 🚀
+# 💪 AlgoGym – Your Personalized DSA Workout App 🧠
 
-**AlgoGym** is your personalized coding fitness tracker — a web app that helps you stay consistent and motivated by generating daily DSA problem sets, tracking your progress, and gamifying your practice with XP and levels.
-
----
-
-## Features
-
-- Sign in with your LeetCode, Codeforces, or GFG handle
-- Auto-generated daily DSA problem sets (Easy → Hard)
-- Track your solving streak and time spent per topic (Graphs, DP, etc.)
-- Earn XP points and level up with a progress bar
-- Clean, responsive UI powered by Next.js and Tailwind CSS
-- API routes for backend logic and data tracking
+AlgoGym is a gamified platform that generates personalized DSA (Data Structures and Algorithms) problem sets based on your strengths and weaknesses. It motivates consistent practice through XP, streaks, topic-wise progress, and daily goals — your own gym for algorithms!
 
 ---
 
-## Tech Stack
+## 🚀 Features
 
-- [Next.js](https://nextjs.org/) — React framework with server-side rendering & API routes
-- [Tailwind CSS](https://tailwindcss.com/) — Utility-first CSS framework
-- JavaScript
-- Integration with LeetCode, Codeforces, and GFG APIs for real-time data
+### 🎯 Personalized Problem Generation
+- Generates problems from your weak topics(fetches using user's leetcode profile) using **Gemini API**
+- Problems include title, topic, difficulty, time estimate, and hints
 
-## Contribution
+### 🧠 Smart Progress Tracking
+- 📊 XP system to track progress
+- 🔥 Daily streak counter to build consistency
+- 🧩 Tracks number of problems solved per topic
+- 🕒 Recent activity log to visualize your efforts
 
-Contributions are welcome! Feel free to open issues or submit pull requests.
+### 🛡️ Secure & Seamless Auth
+- Integrated with **NextAuth.js**
+- Secure session handling and user state management
 
-## Contact
+### 🌐 Platform Handle Integration
+- Connect your **LeetCode**, **GeeksforGeeks**, and **Codeforces** profiles
+- Dashboard reflects your coding journey across platforms
 
-Created by Neha Waddi -nehawaddi@gmail.com
-GitHub: https://github.com/Neha-Waddi
-LinkedIn: https://www.linkedin.com/in/neha-waddi-a4280625b/
+### 🎨 Beautiful Dashboard UI
+- Built with **Next.js** and **Tailwind CSS**
+- Fully responsive
+
+---
+
+## 🧪 Tech Stack
+
+| Layer            | Tools/Libraries Used                            |
+|------------------|--------------------------------------------------|
+| 🧠 AI API        | Google Gemini 1.5 (generative model)             |
+| 🔙 Backend       | Next.js API routes, MongoDB Atlas (Mongoose)     |
+| 🧾 Auth          | NextAuth.js                                       |
+| 💽 Database      | MongoDB Atlas                                     |
+| 🎨 Frontend      | React + Tailwind CSS (fully responsive)           |
+| ☁️ Deployment    | Vercel               |
+
+---
+
+## ✨ How It Works
+
+- **User logs in** and links platform handles.
+- Based on weak topics from performance, **Gemini generates custom DSA problems**.
+- Solved problems are stored and tracked — never repeated again.
+- XP and streak system motivates consistency.
+- Dashboard visualizes daily and cumulative progress.
+---
+
+## 🧠 What I Learned
+
+This project was a great learning experience that helped me explore full-stack development, AI integration, and user-centric design. Here are some of the key things I learned:
+
+- ✅ **Authentication** with NextAuth.js and session-based user state
+- ✅ **Building RESTful API routes** using Next.js
+- ✅ **Using Gemini (Google Generative AI)** to dynamically create useful content
+- ✅ **MongoDB + Mongoose** for schema modeling and storing complex user data
+- ✅ **React Hooks (useState, useEffect)** for reactive UI
+- ✅ **Creating reusable, responsive UI** with Tailwind CSS
+- ✅ Handling **Edge Cases** like onboarding new users or avoiding duplicates
+- ✅ Tracking **XP, streaks, and progress gamification** to enhance user motivation
+
+> This was a passion project and one of the most rewarding experiences of my learning journey. 🚀
+
+---
